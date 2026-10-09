@@ -154,7 +154,7 @@ export default function App() {
             <h2>Secteurs agricoles prioritaires</h2>
             <p className="aide">
               Dans les {retenus.length} sous-bassins retenus : <b className="mono">{secteursRetenus.length}</b>{' '}
-              secteurs de 400 m de côté, <b className="mono">{nombre(haSecteurs, 0)}</b> ha de surface agricole
+              secteurs de 400 m de côté, classés au sein de chaque sous-bassin ; <b className="mono">{nombre(haSecteurs, 0)}</b> ha de surface agricole
               utile hors espaces inéligibles.
             </p>
             <table className="grille">
@@ -179,6 +179,7 @@ export default function App() {
                     <tr><th>Terres arables</th><td><b>{nombre(fiche.ta, 0)}</b> %</td></tr>
                     <tr><th>Cultures permanentes</th><td><b>{nombre(fiche.cp, 0)}</b> %</td></tr>
                     <tr><th>Note</th><td><b>{nombre(fiche.note)}</b> / 100 · <span className="et">{ETOILES(fiche.etoiles)}</span></td></tr>
+                    <tr><th>Rang dans le sous-bassin</th><td><b>{fiche.rang}</b> sur {fiche.n_sb}</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -299,7 +300,9 @@ export default function App() {
             {classes.map((c, i) => <span key={i} style={{ background: c }} />)}
           </div>
           <div className="legende-bornes"><span>1 ★</span><span>5 ★</span></div>
-          <div className="legende-classes">Cinq classes d'effectifs voisins</div>
+          <div className="legende-classes">
+            {niveau === 'bassin' ? "Cinq classes d'effectifs voisins" : 'Cinq classes au sein de chaque sous-bassin'}
+          </div>
           {exclusions && (
             <ul className="legende-excl">
               {Object.values(EXCLUSIONS).map((e) => (

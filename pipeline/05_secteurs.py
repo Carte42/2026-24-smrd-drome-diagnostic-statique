@@ -39,9 +39,9 @@ SAU_MINI_HA = 3.0
 REVETUES = {"Route à 1 chaussée", "Route à 2 chaussées", "Rond-point"}
 
 CRITERES = [
-    {"cle": "P", "libelle": "Proximité des milieux aquatiques", "poids": 40,
-     "lecture": "Distance au plus proche cours d'eau permanent : plus l'aménagement est proche, plus il soutient le milieu."},
-    {"cle": "I", "libelle": "Potentiel d'infiltration", "poids": 35,
+    {"cle": "P", "libelle": "Proximité des milieux aquatiques", "poids": 30,
+     "lecture": "Distance au plus proche cours d'eau naturel, permanent ou intermittent, ou à la plus proche source."},
+    {"cle": "I", "libelle": "Potentiel d'infiltration", "poids": 45,
      "lecture": "Part de la surface en pente inférieure à 10 % et convergence des écoulements."},
     {"cle": "S", "libelle": "Pression sur les milieux et les sols", "poids": 25,
      "lecture": "Part des terres arables et des cultures permanentes, qui ruissellent davantage ou consomment plus d'eau que les prairies."},
@@ -123,9 +123,15 @@ def main() -> None:
     pieces = gpd.overlay(mailles, sau, how="intersection", keep_geom_type=True)
     pieces["ha"] = pieces.area / 1e4
 
-    permanents = c["troncons"]
-    permanents = permanents[(permanents["persistance"] == "Permanent") & (permanents["nature"] == "Ecoulement naturel")]
-    reseau = unary_union(list(permanents.geometry))
+    # Réseau de référence : tous les cours d'eau naturels, permanents ou
+    # intermittents, et les sources. Limiter la mesure aux seuls tronçons
+    # permanents favorisait mécaniquement les fonds de vallée, la BD TOPO
+    # classant l'essentiel du réseau amont en intermittent.
+    tr = c["troncons"]
+    tr = tr[(tr["fictif"].astype(str).str.lower() != "true") & (tr["nature"] == "Ecoulement naturel")]
+    src = c["details_eau"]
+    src = src[src["nature"].isin(["Source", "Source captée", "Résurgence"])]
+    reseau = unary_union(list(tr.geometry) + list(src.geometry))
 
     lignes = []
     for m, groupe in pieces.groupby("maille"):
@@ -166,9 +172,17 @@ def main() -> None:
     sec["n_S"] = (minmax(sec["ta"]) + minmax(sec["cp"])) / 2.0
     total = sum(k["poids"] for k in CRITERES)
     sec["note"] = sum(sec["n_" + k["cle"]] * k["poids"] for k in CRITERES) / total
-    rang = sec["note"].rank(method="first", ascending=False).astype(int)
-    sec["rang"] = rang
-    sec["etoiles"] = (5 - ((rang - 1) * 5 // len(sec))).astype(int)
+    # Les cinq classes se répartissent au sein de chaque sous-bassin, comme le
+    # demande le CCTP : des secteurs prioritaires au sein de chacun des
+    # sous-bassins évalués, non sur l'ensemble du secteur d'étude.
+    # Un sous-bassin de moins de cinq secteurs ne se partage pas en cinq classes :
+    # ses secteurs reçoivent la classe qu'ils auraient sur l'ensemble du secteur d'étude.
+    sec["rang"] = sec.groupby("sb")["note"].rank(method="first", ascending=False).astype(int)
+    sec["n_sb"] = sec.groupby("sb")["note"].transform("size").astype(int)
+    interne = (5 - ((sec["rang"] - 1) * 5 // sec["n_sb"])).astype(int)
+    rang_global = sec["note"].rank(method="first", ascending=False).astype(int)
+    global_ = (5 - ((rang_global - 1) * 5 // len(sec))).astype(int)
+    sec["etoiles"] = np.where(sec["n_sb"] >= 5, interne, global_).astype(int)
     for k in ("note", "n_P", "n_I", "n_S", "dist_eau_m", "pente10", "twi", "ta", "cp"):
         sec[k] = sec[k].round(1)
 

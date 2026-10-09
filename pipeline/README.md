@@ -31,7 +31,7 @@ Le premier lancement télécharge une dizaine de mégaoctets de relief et de cou
 
 **Notation.** Chaque indicateur est ramené de 0 à 100 entre les valeurs extrêmes du secteur (sens inversé si une valeur faible est favorable). La note d'une famille est la moyenne de ses indicateurs ; la note globale pondère les familles (30, 25, 25, 20). La priorité est un rang de une à cinq étoiles, en cinq classes d'effectifs voisins.
 
-**Secteurs agricoles.** La surface agricole utile du RPG 2024, ôtée des espaces inéligibles, est découpée en mailles de 400 m. Une maille est conservée à partir de 3 ha. Trois critères : distance au cours d'eau permanent (40), potentiel d'infiltration (35), pression (25).
+**Secteurs agricoles.** La surface agricole utile du RPG 2024, ôtée des espaces inéligibles, est découpée en mailles de 400 m. Une maille est conservée à partir de 3 ha. Trois critères : proximité des milieux aquatiques, distance au cours d'eau naturel, permanent ou intermittent, ou à la source la plus proche (30), potentiel d'infiltration (45), pression (25). La priorité de 1 à 5 étoiles se répartit au sein de chaque sous-bassin de cinq secteurs au moins, comme le demande le CCTP.
 
 ## Validation
 

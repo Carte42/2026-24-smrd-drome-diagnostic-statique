@@ -9,7 +9,7 @@
       "nom": "criteres_agricoles.json",
       "legende": "Critères de notation des secteurs agricoles",
       "famille": "donnees",
-      "octets": 549
+      "octets": 542
     },
     {
       "chemin": "data/grille.json",
@@ -30,14 +30,14 @@
       "nom": "secteurs.csv",
       "legende": "Les mêmes secteurs en tableur, sans géométrie",
       "famille": "donnees",
-      "octets": 20802
+      "octets": 21374
     },
     {
       "chemin": "data/secteurs.geojson",
       "nom": "secteurs.geojson",
       "legende": "Secteurs agricoles notés, hors espaces inéligibles",
       "famille": "donnees",
-      "octets": 1045825
+      "octets": 1049344
     },
     {
       "chemin": "data/sous_bassins.csv",
@@ -58,7 +58,7 @@
       "nom": "traitements.zip",
       "legende": "Les scripts qui produisent tout ce qui précède",
       "famille": "donnees",
-      "octets": 23774
+      "octets": 24229
     },
     {
       "chemin": "data/bassin_drome.geojson",
