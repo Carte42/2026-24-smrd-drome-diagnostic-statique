@@ -35,7 +35,23 @@ export default function MapView({
     }
     L.control.scale({ metric: true, imperial: false, position: 'bottomleft' }).addTo(carte)
     refs.current = { carte, groupes: {} }
+
+    // Une carte créée dans un conteneur encore sans dimension (onglet masqué,
+    // mise en page tardive) se cadre sur une taille nulle. À chaque changement
+    // de taille, elle se redimensionne et se recadre, tant que personne n'y a
+    // touché.
+    const toucher = () => { refs.current.touche = true }
+    const el = refDiv.current
+    ;['mousedown', 'wheel', 'touchstart'].forEach((e) => el.addEventListener(e, toucher, { passive: true }))
+    const obs = new ResizeObserver(() => {
+      if (!el.clientWidth || !el.clientHeight) return
+      carte.invalidateSize(false)
+      if (!refs.current.touche && refs.current.recadrer) refs.current.recadrer(false)
+    })
+    obs.observe(el)
     return () => {
+      obs.disconnect()
+      ;['mousedown', 'wheel', 'touchstart'].forEach((e) => el.removeEventListener(e, toucher))
       carte.remove()
       refs.current = {}
     }
@@ -81,13 +97,17 @@ export default function MapView({
   useEffect(() => {
     const { carte } = refs.current
     if (!carte || !donnees) return
-    const ajuster = () => {
+    const recadrer = (anime = true) => {
       carte.invalidateSize(false)
       const cible = cadre === 'secteur' ? donnees.gervanne : donnees.drome
       const marge = cadre === 'secteur' ? [34, 34] : [14, 14]
-      carte.flyToBounds(L.geoJSON(cible).getBounds(), { padding: marge, duration: 0.9 })
+      const limites = L.geoJSON(cible).getBounds()
+      if (anime) carte.flyToBounds(limites, { padding: marge, duration: 0.9 })
+      else carte.fitBounds(limites, { padding: marge, animate: false })
     }
-    ajuster()
+    refs.current.recadrer = recadrer
+    refs.current.touche = false
+    recadrer(true)
     const t = setTimeout(() => carte.invalidateSize(false), 400)
     return () => clearTimeout(t)
   }, [cadre, donnees])
