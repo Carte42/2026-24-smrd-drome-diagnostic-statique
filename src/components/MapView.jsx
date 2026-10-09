@@ -4,6 +4,7 @@ import {
   FONDS, MAP_CENTER, MAP_ZOOM, PRIORITE_BASSIN, PRIORITE_SECTEUR, NEUTRE, EXCLUSIONS,
   ETOILES, nombre,
 } from '../config.js'
+import { bulleBassin, bulleSecteur } from '../description.js'
 
 /**
  * Carte Leaflet : fond IGN, situation dans le bassin de la Drôme, sous-bassins
@@ -15,6 +16,7 @@ import {
  */
 export default function MapView({
   donnees, niveau, seuil, choix, onChoix, secteur, onSecteur, exclusions, fond, cadre,
+  onVoirSecteurs, onDetail,
 }) {
   const refDiv = useRef(null)
   const refs = useRef({})
@@ -56,6 +58,33 @@ export default function MapView({
       refs.current = {}
     }
   }, [])
+
+  // Les fonctions de rappel changent à chaque rendu de la page : la carte garde
+  // la dernière, sans recréer ses couches.
+  useEffect(() => {
+    refs.current.rappels = { onVoirSecteurs, onDetail }
+  })
+
+  // La bulle d'un niveau n'a pas de sens sur l'autre.
+  useEffect(() => {
+    refs.current.carte?.closePopup()
+  }, [niveau])
+
+  // Bulle de description, ancrée au point cliqué. Ses deux boutons passent par
+  // une délégation d'événement : le contenu est une chaîne HTML.
+  const ouvrirBulle = (latlng, html) => {
+    const { carte } = refs.current
+    const bulle = L.popup({ maxWidth: 310, minWidth: 270, className: 'bulle-hote', autoPanPadding: [30, 30] })
+      .setLatLng(latlng).setContent(html).openOn(carte)
+    bulle.getElement().addEventListener('click', (ev) => {
+      const b = ev.target.closest('[data-act]')
+      if (!b) return
+      if (b.dataset.act === 'secteurs') {
+        carte.closePopup()
+        refs.current.rappels.onVoirSecteurs(b.dataset.id)
+      } else refs.current.rappels.onDetail()
+    })
+  }
 
   // ── Fond de plan ──────────────────────────────────────────────────────────
   useEffect(() => {
@@ -149,7 +178,10 @@ export default function MapView({
           `<strong>${p.id} · ${p.nom}</strong><br>${nombre(p.surface_km2)} km² · note ${nombre(p.note)} / 100<br><span class="et">${ETOILES(p.etoiles)}</span>`,
           { sticky: true, className: 'survol' },
         )
-        lc.on('click', () => onChoix(p.id === choix ? null : p.id))
+        lc.on('click', (e) => {
+          onChoix(p.id)
+          ouvrirBulle(e.latlng, bulleBassin(p))
+        })
       },
     }).addTo(carte)
     refs.current.sb = couche
@@ -184,6 +216,7 @@ export default function MapView({
       refs.current.sec = null
     }
     if (niveau !== 'agricole') return
+    const noms = Object.fromEntries(donnees.sousBassins.features.map((f) => [f.properties.id, f.properties.nom]))
     const retenus = new Set(
       donnees.sousBassins.features.filter((f) => f.properties.etoiles >= seuil).map((f) => f.properties.id),
     )
@@ -205,7 +238,10 @@ export default function MapView({
           `<strong>Secteur agricole</strong> · ${nombre(p.ha)} ha<br>note ${nombre(p.note)} / 100 · <span class="et">${ETOILES(p.etoiles)}</span>`,
           { sticky: true, className: 'survol' },
         )
-        lc.on('click', () => onSecteur(f.properties.maille === secteur ? null : f.properties.maille))
+        lc.on('click', (e) => {
+          onSecteur(p.maille)
+          ouvrirBulle(e.latlng, bulleSecteur(p, noms[p.sb]))
+        })
       },
     }).addTo(carte)
   }, [donnees, niveau, seuil, secteur, onSecteur])

@@ -133,6 +133,11 @@ def main() -> None:
     src = src[src["nature"].isin(["Source", "Source captée", "Résurgence"])]
     reseau = unary_union(list(tr.geometry) + list(src.geometry))
 
+    acces_routes = c["routes"][c["routes"]["nature"].isin(
+        ["Chemin", "Route empierrée", "Route à 1 chaussée", "Route à 2 chaussées"])]
+    acces = unary_union(list(acces_routes.geometry))
+    altitudes = relief["mnt"]
+
     lignes = []
     for m, groupe in pieces.groupby("maille"):
         ha = groupe["ha"].sum()
@@ -153,6 +158,9 @@ def main() -> None:
             "dist_eau_m": float(geom.representative_point().distance(reseau)),
             "pente10": 100.0 * float((pente[fen][masque] < 10.0).mean()),
             "twi": float(np.median(twi[fen][masque])),
+            "alt": float(altitudes[int((ORIGINE[1] - geom.representative_point().y) // PIXEL),
+                                    int((geom.representative_point().x - ORIGINE[0]) // PIXEL)]),
+            "dist_acces_m": float(geom.representative_point().distance(acces)),
             "ta": 100.0 * groupe.loc[groupe["cat_cult_p"] == "TA", "ha"].sum() / ha,
             "cp": 100.0 * groupe.loc[groupe["cat_cult_p"] == "CP", "ha"].sum() / ha,
             "geometry": geom,
@@ -183,7 +191,7 @@ def main() -> None:
     rang_global = sec["note"].rank(method="first", ascending=False).astype(int)
     global_ = (5 - ((rang_global - 1) * 5 // len(sec))).astype(int)
     sec["etoiles"] = np.where(sec["n_sb"] >= 5, interne, global_).astype(int)
-    for k in ("note", "n_P", "n_I", "n_S", "dist_eau_m", "pente10", "twi", "ta", "cp"):
+    for k in ("note", "n_P", "n_I", "n_S", "dist_eau_m", "dist_acces_m", "alt", "pente10", "twi", "ta", "cp"):
         sec[k] = sec[k].round(1)
 
     web = sec.copy()

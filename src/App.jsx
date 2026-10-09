@@ -76,6 +76,16 @@ export default function App() {
     [donnees],
   )
 
+  // Boutons de la bulle : passer à l'échelle du milieu agricole sur le sous-bassin
+  // choisi, ou amener la fiche détaillée à l'écran.
+  const surVoirSecteurs = useCallback((id) => {
+    setChoix(id)
+    setNiveau('agricole')
+  }, [])
+  const surDetail = useCallback(() => {
+    setTimeout(() => document.querySelector('.sidebar .detail')?.scrollIntoView({ block: 'start', behavior: 'smooth' }), 60)
+  }, [])
+
   const surChoix = useCallback((id) => setChoix(id), [])
   const surSecteur = useCallback((m) => setSecteur(m), [])
 
@@ -292,6 +302,7 @@ export default function App() {
           donnees={donneesCarte}
           niveau={niveau} seuil={seuil} choix={choix} onChoix={surChoix}
           secteur={secteur} onSecteur={surSecteur} exclusions={exclusions} fond={fond} cadre={cadre}
+          onVoirSecteurs={surVoirSecteurs} onDetail={surDetail}
         />
 
         <div className="legende">

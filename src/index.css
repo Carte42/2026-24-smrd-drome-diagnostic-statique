@@ -474,3 +474,24 @@ button { font: inherit; color: inherit; }
 }
 .leaflet-tooltip.survol .et { font-size: 12px; }
 .panneau-corps .petit { color: var(--muted); font-size: 11px; }
+
+/* ── Bulle de description au clic ────────────────────────────────────── */
+.bulle-hote .leaflet-popup-content-wrapper {
+  background: rgba(16, 33, 62, .97); color: var(--text); border: 1px solid var(--rail);
+  border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, .55);
+}
+.bulle-hote .leaflet-popup-tip { background: rgba(16, 33, 62, .97); border: 1px solid var(--rail); }
+.bulle-hote .leaflet-popup-content { margin: 12px 14px; font-family: var(--ui); }
+.bulle-hote a.leaflet-popup-close-button { color: var(--muted) !important; }
+.bulle-tete { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding-right: 14px; }
+.bulle-tete strong { font-size: 14px; color: var(--accent); line-height: 1.3; }
+.bulle-tete .et { font-size: 12px; letter-spacing: 0; }
+.bulle-prio { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 2px 0 8px; }
+.bulle p { font-size: 12.5px; line-height: 1.5; color: var(--label); margin: 0 0 6px; }
+.bulle p.conclusion { color: var(--text); font-weight: 500; border-top: 1px solid var(--border); padding-top: 7px; margin-top: 8px; }
+.bulle-actions { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.bulle-actions button {
+  flex: 1 1 auto; background: var(--panel-3); border: 1px solid var(--rail); color: var(--accent);
+  border-radius: 6px; padding: 6px 9px; font-size: 11.5px; cursor: pointer;
+}
+.bulle-actions button:hover { border-color: var(--accent); }

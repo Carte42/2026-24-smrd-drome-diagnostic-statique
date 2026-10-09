@@ -176,6 +176,8 @@ def main() -> None:
             "cours": cours_principal(zone, nature),
             "commune": commune_principale(zone, communes),
             "surface_km2": round(s_km2, 1),
+            "alt": float(np.median(relief["mnt"][masque])),
+            "pente_med": float(np.median(pente[masque])),
             "A1": l_nat / s_km2,
             "A2": 100.0 * l_int / l_nat if l_nat else 0.0,
             "A3": 10.0 * n_src / s_km2,
