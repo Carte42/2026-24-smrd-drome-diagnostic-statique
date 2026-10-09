@@ -499,23 +499,23 @@ button { font: inherit; color: inherit; }
 
 .avec-bulle .leaflet-tooltip { display: none !important; }
 
-/* ── Bandeau permanent : nature de la page ───────────────────────────── */
+/* ── Bandeau de cadrage ─────────────────────────────────────────────────
+   Affiché en tête de page, en permanence : la page ne doit jamais pouvoir être
+   prise pour le site de l'acheteur. Bande pleine, fond sombre neutre, texte
+   clair, une seule phrase d'attaque en gras et un seul lien. */
 .bandeau {
-  flex: none; display: flex; align-items: center; gap: 12px;
-  padding: 7px 16px; background: #0f1e3d; border-bottom: 2px solid #e4a53a;
-  font-size: 12px; line-height: 1.45; color: var(--label); position: relative; z-index: 1500;
+  flex: none; background: #16181a; color: #eef0f2;
+  font-size: 13px; line-height: 1.45; padding: 9px 0; position: relative; z-index: 1500;
 }
-.bandeau-badge {
-  flex: none; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
-  color: #e4a53a; border: 1px solid #e4a53a; border-radius: 4px; padding: 2px 7px;
-}
-.bandeau-texte { flex: 1; min-width: 0; }
+.bandeau-cadre { padding: 0 16px; }
+.bandeau strong { color: #fff; font-weight: 600; }
 .bandeau-lien {
-  flex: none; background: none; border: 0; color: var(--accent); font-size: 12px;
-  text-decoration: underline; cursor: pointer; white-space: nowrap;
+  background: none; border: 0; padding: 0; font: inherit; color: #fff;
+  text-decoration: underline; cursor: pointer;
 }
-.bandeau-lien:hover { color: var(--text); }
+.bandeau-lien:hover { text-decoration-thickness: 2px; }
+.entete-demo { font-size: 12px; font-weight: 400; color: var(--muted); white-space: nowrap; }
 @media (max-width: 760px) {
-  .bandeau { flex-wrap: wrap; gap: 4px 10px; padding: 5px 10px; font-size: 10.5px; line-height: 1.35; }
-  .bandeau-texte { flex: 1 1 100%; order: 3; }
+  .bandeau { font-size: 11px; line-height: 1.4; padding: 6px 0; }
+  .bandeau-cadre { padding: 0 10px; }
 }

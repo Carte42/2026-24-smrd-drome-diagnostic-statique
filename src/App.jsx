@@ -98,20 +98,20 @@ export default function App() {
   return (
     <div className="page">
       <div className="bandeau" role="note">
-        <span className="bandeau-badge">Démonstration</span>
-        <span className="bandeau-texte">
-          Méthode de Carte 42 présentée en réponse à la consultation du SMRD « Diagnostic territorial du bassin
-          versant de la Drôme ». Cette page n'est pas un site du SMRD. Les résultats illustrent la méthode : ils
-          n'ont pas valeur de diagnostic et ne doivent pas servir à établir des plans d'action ou des études
-          ultérieures.
-        </span>
-        <button className="bandeau-lien" onClick={() => setApropos(true)}>En savoir plus</button>
+        <div className="bandeau-cadre">
+          <strong>Démonstrateur.</strong> Ceci n'est pas le site du Syndicat Mixte de la Rivière Drôme et ses
+          affluents. Page produite par Carte&nbsp;42 à l'appui de sa réponse à la consultation « Diagnostic
+          territorial du bassin versant de la Drôme ». Les résultats illustrent la méthode, sur données ouvertes :
+          ils n'ont pas valeur de diagnostic et ne doivent pas servir à établir des plans d'action ou des études
+          ultérieures.{' '}
+          <button className="bandeau-lien" onClick={() => setApropos(true)}>Portée exacte de la démonstration</button>.
+        </div>
       </div>
     <div className="app">
       <aside className="sidebar">
         <div className="entete">
           <div className="entete-marche">SMRD · Diagnostic territorial</div>
-          <h1>Bassin de la Drôme</h1>
+          <h1>Bassin de la Drôme <span className="entete-demo">· démonstrateur</span></h1>
           <div className="entete-territoire">
             Secteur de démonstration : bassin de la Gervanne, {nombre(emprise.bassin_gervanne_km2, 0)} km²,{' '}
             {unites.length} sous-bassins versants
