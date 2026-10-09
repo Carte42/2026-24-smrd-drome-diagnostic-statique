@@ -18,7 +18,16 @@ La bulle qui s'ouvre au clic sur un sous-bassin ou un secteur agricole décrit l
 | 3. Desserte | Chemins et routes empierrées (D2) | ≥ 2,7 km/km² · ≥ 1,9 · sinon | bien desservi · accès correct par les pistes · accès rares |
 | 3. Aménagement | Surface en pente < 15 % (C1) | ≥ 35 % · < 12 % · sinon | la pente permet d'aménager · limite fortement · limite en partie |
 
-**Conclusion selon les étoiles.** 5 : effet important et relativement simple à mettre en œuvre. 4 : pertinente et réalisable. 3 : intérêt moyen, effet attendu et faisabilité partagés. 2 et 1 : rôle de zone d'alimentation des cours d'eau en aval.
+**Conclusion : le motif du classement.** Un niveau d'étoiles seul est ambigu : un rang bas peut venir d'un moindre besoin d'agir ou d'un terrain moins propice à l'aménagement. La conclusion nomme donc les familles qui portent le classement. Une famille est un atout si sa note est d'au moins 60 sur 100, un retrait si elle est d'au plus 40.
+
+| Famille | Atout | Retrait |
+|---|---|---|
+| Vulnérabilité des milieux aquatiques | des milieux aquatiques nombreux et fragiles | peu de milieux fragiles à soutenir |
+| Pressions | de fortes pressions à corriger | peu de pression à corriger |
+| Potentiel d'infiltration | un terrain favorable à l'infiltration | un terrain peu favorable à l'infiltration |
+| Faisabilité | une mise en œuvre facile | une mise en œuvre difficile |
+
+4 et 5 étoiles : « pertinente » suivi des atouts, avec le retrait principal s'il y en a un (« mais… »). 3 étoiles : un atout et un retrait. 1 et 2 étoiles : « priorité plus faible » suivi des retraits.
 
 ## Secteur agricole
 
@@ -30,13 +39,21 @@ La bulle qui s'ouvre au clic sur un sous-bassin ou un secteur agricole décrit l
 | 2. Sol | Terres arables, cultures permanentes | ta ≥ 60 % · cp ≥ 30 % · ta < 20 % et cp < 20 % · sinon | cultivé en terres arables (avec mention du ruissellement si le cours d'eau est à moins de 300 m) · planté en vignes ou en cultures pérennes · en prairie, sol enherbé · en partie cultivé |
 | 3. Accès | Distance au plus proche chemin ou route | < 60 m · < 200 m · au-delà | en bordure d'un chemin · accessible par un chemin proche · à l'écart des chemins |
 
-**Conclusion selon les étoiles.** 4 et 5 : bien placé et réalisable. 3 : envisageable. 1 et 2 : moins bien placé que les autres du même sous-bassin.
+**Conclusion : le motif du classement.** Mêmes seuils, sur les trois critères du secteur.
+
+| Critère | Atout | Retrait |
+|---|---|---|
+| Proximité des milieux aquatiques | proche du milieu à soutenir | éloigné du milieu à soutenir, effet attendu limité |
+| Potentiel d'infiltration | terrain favorable à l'infiltration | terrain moins propice à l'aménagement |
+| Pression sur les milieux et les sols | sol cultivé, qui ruisselle | peu de pression à corriger |
+
+Un retrait de pression se lit comme un moindre besoin d'agir, un retrait d'infiltration comme un aménagement plus difficile. La bulle distingue ainsi les deux causes d'un rang bas. Si aucun retrait ne ressort, elle dit que le secteur est moins bien classé que ses voisins sur l'ensemble des critères.
 
 Les étoiles d'un secteur sont celles de son sous-bassin lorsque celui-ci compte au moins cinq secteurs ; sinon, celles de l'ensemble du secteur d'étude, et la bulle n'écrit pas « dans son sous-bassin ».
 
 ## Nature du texte
 
-Les phrases décrivent des indicateurs. La conclusion est une lecture de la priorité, pas une mesure : elle traduit en mots le niveau d'étoiles. Les seuils sont des choix de présentation, modifiables sans toucher à la grille de notation.
+Les phrases décrivent des indicateurs. La conclusion est une lecture de la priorité, pas une mesure : elle traduit en mots les critères qui portent le niveau d'étoiles. Les seuils sont des choix de présentation, modifiables sans toucher à la grille de notation.
 
 ## Ce que recouvrent les catégories de culture
 

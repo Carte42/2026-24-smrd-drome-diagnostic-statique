@@ -21,6 +21,28 @@ function relief(alt) {
   return 'haute montagne'
 }
 
+// ── Motifs d'un classement ───────────────────────────────────────────────────
+//
+// Un niveau d'étoiles seul est ambigu : un rang bas peut venir d'un moindre
+// besoin d'agir ou d'un terrain moins propice à l'aménagement. La conclusion
+// nomme donc les critères qui portent le classement, vers le haut ou vers le bas.
+// Une note de critère est sur 100, normalisée dans le secteur : au moins 60 est
+// un atout, au plus 40 un retrait.
+const ATOUT = 60
+const RETRAIT = 40
+
+function motifs(notes, atouts, retraits, plus = 2) {
+  const classes = Object.keys(notes)
+  const forts = classes.filter((k) => notes[k] >= ATOUT).sort((a, b) => notes[b] - notes[a]).slice(0, plus)
+  const faibles = classes.filter((k) => notes[k] <= RETRAIT).sort((a, b) => notes[a] - notes[b]).slice(0, plus)
+  return {
+    forts: forts.map((k) => atouts[k]),
+    faibles: faibles.map((k) => retraits[k]),
+  }
+}
+
+const liste = (l) => (l.length > 1 ? `${l.slice(0, -1).join(', ')} et ${l[l.length - 1]}` : l[0])
+
 // ── Sous-bassin ──────────────────────────────────────────────────────────────
 
 /** Les trois phrases du portrait d'un sous-bassin, puis sa conclusion. */
@@ -62,19 +84,73 @@ export function decrireBassin(p) {
     p.C1 >= 35 ? "la pente permet d'aménager" : p.C1 < 12 ? 'la pente limite fortement les aménagements' : 'la pente limite en partie les aménagements'
   const s3 = `${desserte} ; ${amenager}.`
 
-  return [s1, s2, s3, conclusionBassin(p.etoiles)]
+  return [s1, s2, s3, conclusionBassin(p)]
 }
 
-function conclusionBassin(e) {
-  if (e === 5) return "Une action d'infiltration y aurait un effet important et serait relativement simple à mettre en œuvre."
-  if (e === 4) return "Une action d'infiltration y serait pertinente et réalisable."
-  if (e === 3) return "L'intérêt d'agir y est moyen : l'effet attendu et la faisabilité sont partagés."
-  return "Ce sous-bassin joue surtout un rôle de zone d'alimentation des cours d'eau en aval."
+const ATOUTS_BASSIN = {
+  A: 'des milieux aquatiques nombreux et fragiles',
+  B: 'de fortes pressions à corriger',
+  C: "un terrain favorable à l'infiltration",
+  D: 'une mise en œuvre facile',
+}
+const RETRAITS_BASSIN = {
+  A: 'peu de milieux fragiles à soutenir',
+  B: 'peu de pression à corriger',
+  C: "un terrain peu favorable à l'infiltration",
+  D: 'une mise en œuvre difficile',
+}
+
+function conclusionBassin(p) {
+  const { forts, faibles } = motifs({ A: p.f_A, B: p.f_B, C: p.f_C, D: p.f_D }, ATOUTS_BASSIN, RETRAITS_BASSIN, 3)
+  if (p.etoiles >= 4) {
+    const tempere = faibles.length ? `, mais ${faibles[0]}` : ''
+    return forts.length
+      ? `Une action d'infiltration y est pertinente : ${liste(forts)}${tempere}.`
+      : "Une action d'infiltration y est pertinente, sans atout isolé mais avec un ensemble favorable."
+  }
+  if (p.etoiles === 3) {
+    if (forts.length && faibles.length) return `Intérêt moyen : ${liste(forts.slice(0, 1))}, mais ${liste(faibles.slice(0, 1))}.`
+    if (forts.length) return `Intérêt moyen : ${liste(forts.slice(0, 1))}.`
+    if (faibles.length) return `Intérêt moyen : ${liste(faibles.slice(0, 1))}.`
+    return "Intérêt moyen : les critères sont partagés, sans atout ni retrait marqué."
+  }
+  return faibles.length
+    ? `Priorité plus faible : ${liste(faibles.slice(0, 2))}.`
+    : "Priorité plus faible : aucun critère ne ressort, l'ensemble reste en retrait."
 }
 
 // ── Secteur agricole ─────────────────────────────────────────────────────────
 
 const arrondi50 = (m) => Math.max(50, Math.round(m / 50) * 50)
+
+const ATOUTS_SECTEUR = {
+  P: 'proche du milieu à soutenir',
+  I: "terrain favorable à l'infiltration",
+  S: 'sol cultivé, qui ruisselle',
+}
+const RETRAITS_SECTEUR = {
+  P: 'éloigné du milieu à soutenir, effet attendu limité',
+  I: "terrain moins propice à l'aménagement",
+  S: 'peu de pression à corriger',
+}
+
+function conclusionSecteur(p) {
+  const { forts, faibles } = motifs({ P: p.n_P, I: p.n_I, S: p.n_S }, ATOUTS_SECTEUR, RETRAITS_SECTEUR, 2)
+  const portee = p.n_sb >= 5 ? ' dans son sous-bassin' : ''
+  if (p.etoiles >= 4) {
+    const tempere = faibles.length ? `, mais ${faibles[0]}` : ''
+    return forts.length
+      ? `Un aménagement d'infiltration y serait bien placé : ${liste(forts)}${tempere}.`
+      : "Un aménagement d'infiltration y serait bien placé, sans atout isolé mais avec un ensemble favorable."
+  }
+  if (p.etoiles === 3) {
+    if (forts.length && faibles.length) return `Intérêt moyen : ${forts[0]}, mais ${faibles[0]}.`
+    return "Intérêt moyen : les critères sont partagés, sans atout ni retrait marqué."
+  }
+  return faibles.length
+    ? `Priorité plus faible${portee} : ${liste(faibles)}.`
+    : `Priorité plus faible${portee} : sans retrait marqué, mais moins bien classé que ses voisins sur l'ensemble des critères.`
+}
 
 export function decrireSecteur(p) {
   // Position par rapport à l'eau.
@@ -96,11 +172,7 @@ export function decrireSecteur(p) {
   // Accès.
   const acces = p.dist_acces_m < 60 ? "En bordure d'un chemin." : p.dist_acces_m < 200 ? 'Accessible par un chemin proche.' : "À l'écart des chemins."
 
-  let conclusion
-  if (p.etoiles >= 4) conclusion = "Un aménagement d'infiltration y serait bien placé et réalisable."
-  else if (p.etoiles === 3) conclusion = "Un aménagement d'infiltration y est envisageable."
-  else conclusion = 'Ce secteur est moins bien placé que les autres du même sous-bassin.'
-  return [eau, s2, acces, conclusion]
+  return [eau, s2, acces, conclusionSecteur(p)]
 }
 
 // ── Bulles ───────────────────────────────────────────────────────────────────
