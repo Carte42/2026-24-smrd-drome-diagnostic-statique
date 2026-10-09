@@ -4,7 +4,7 @@ import {
   FONDS, MAP_CENTER, MAP_ZOOM, PRIORITE_BASSIN, PRIORITE_SECTEUR, NEUTRE, EXCLUSIONS,
   ETOILES, nombre,
 } from '../config.js'
-import { bulleBassin, bulleSecteur } from '../description.js'
+import { bulleBassin, bulleSecteur, MOTS_PRIORITE } from '../description.js'
 
 /**
  * Carte Leaflet : fond IGN, situation dans le bassin de la Drôme, sous-bassins
@@ -36,6 +36,8 @@ export default function MapView({
       carte.createPane(nom).style.zIndex = z
     }
     L.control.scale({ metric: true, imperial: false, position: 'bottomleft' }).addTo(carte)
+    carte.on('popupopen', () => carte.getContainer().classList.add('avec-bulle'))
+    carte.on('popupclose', () => carte.getContainer().classList.remove('avec-bulle'))
     refs.current = { carte, groupes: {} }
 
     // Une carte créée dans un conteneur encore sans dimension (onglet masqué,
@@ -175,7 +177,7 @@ export default function MapView({
       onEachFeature: (f, lc) => {
         const p = f.properties
         lc.bindTooltip(
-          `<strong>${p.id} · ${p.nom}</strong><br>${nombre(p.surface_km2)} km² · note ${nombre(p.note)} / 100<br><span class="et">${ETOILES(p.etoiles)}</span>`,
+          `<strong>${p.nom}</strong><br><span class="et">${ETOILES(p.etoiles)}</span> priorité ${MOTS_PRIORITE[p.etoiles]}`,
           { sticky: true, className: 'survol' },
         )
         lc.on('click', (e) => {
@@ -235,7 +237,7 @@ export default function MapView({
       onEachFeature: (f, lc) => {
         const p = f.properties
         lc.bindTooltip(
-          `<strong>Secteur agricole</strong> · ${nombre(p.ha)} ha<br>note ${nombre(p.note)} / 100 · <span class="et">${ETOILES(p.etoiles)}</span>`,
+          `<strong>Secteur agricole</strong><br><span class="et">${ETOILES(p.etoiles)}</span> priorité ${MOTS_PRIORITE[p.etoiles]}`,
           { sticky: true, className: 'survol' },
         )
         lc.on('click', (e) => {
