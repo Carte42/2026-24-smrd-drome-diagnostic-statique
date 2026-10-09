@@ -12,7 +12,7 @@
      "unite": "km/km²",
      "sens": 1,
      "source": "BD TOPO, tronçons hydrographiques naturels",
-     "lecture": "Longueur de cours d'eau, permanents et intermittents, rapportée à la surface. Plus il y a de milieux à soutenir, plus l'action est utile."
+     "lecture": "Longueur de cours d'eau naturels, permanents et intermittents, rapportée à la surface. Retenu comme mesure de la quantité de milieux aquatiques."
     },
     {
      "cle": "A2",
@@ -20,7 +20,7 @@
      "unite": "%",
      "sens": 1,
      "source": "BD TOPO, attribut de persistance",
-     "lecture": "Part du linéaire qui s'assèche par intermittence. Un réseau intermittent est plus exposé aux assecs."
+     "lecture": "Part du linéaire classé intermittent dans la BD TOPO. Retenu comme approche de l'exposition aux assecs."
     },
     {
      "cle": "A3",
@@ -28,7 +28,7 @@
      "unite": "pour 10 km²",
      "sens": 1,
      "source": "BD TOPO, détails hydrographiques",
-     "lecture": "Sources, sources captées et résurgences recensées. Elles marquent les zones d'alimentation à préserver."
+     "lecture": "Sources, sources captées et résurgences recensées dans la BD TOPO, rapportées à la surface."
     }
    ]
   },
@@ -52,7 +52,7 @@
      "unite": "% de la SAU",
      "sens": 1,
      "source": "Registre parcellaire graphique 2024",
-     "lecture": "Vignes, vergers et autres cultures permanentes, plus dépendantes de l'eau que les prairies : pression potentielle sur la ressource."
+     "lecture": "Part des vignes, vergers et autres cultures permanentes dans la surface agricole utile. Retenu comme approche de la pression sur la ressource en eau."
     },
     {
      "cle": "B3",
@@ -60,7 +60,7 @@
      "unite": "% de la SAU",
      "sens": 1,
      "source": "Registre parcellaire graphique 2024",
-     "lecture": "Part des terres arables dans la surface agricole utile. Les sols cultivés ruissellent davantage que les prairies."
+     "lecture": "Part des terres arables dans la surface agricole utile. Retenu comme approche de la pression sur le ruissellement."
     }
    ]
   },
@@ -76,7 +76,7 @@
      "unite": "% (pente < 15 %)",
      "sens": 1,
      "source": "RGE ALTI, rééchantillonné à 25 m",
-     "lecture": "Part de la surface où la pente reste inférieure à 15 %, condition d'un aménagement paysager d'infiltration."
+     "lecture": "Part de la surface où la pente est inférieure à 15 %. Retenu comme approche de l'aptitude du terrain à un aménagement d'infiltration."
     },
     {
      "cle": "C2",
@@ -84,7 +84,7 @@
      "unite": "indice",
      "sens": 1,
      "source": "RGE ALTI, indice d'humidité topographique médian",
-     "lecture": "Indice qui croît là où les écoulements convergent. Il repère les terrains où le ruissellement se concentre."
+     "lecture": "Indice d'humidité topographique médian : il croît là où les écoulements convergent."
     },
     {
      "cle": "C3",
@@ -92,7 +92,7 @@
      "unite": "% (pente < 10 %)",
      "sens": 1,
      "source": "RGE ALTI et registre parcellaire graphique 2024",
-     "lecture": "Part de la surface agricole utile en pente inférieure à 10 %, directement mobilisable."
+     "lecture": "Part de la surface agricole utile où la pente est inférieure à 10 %."
     }
    ]
   },
@@ -108,7 +108,7 @@
      "unite": "%",
      "sens": 1,
      "source": "Registre parcellaire graphique 2024",
-     "lecture": "Part du sous-bassin occupée par des parcelles agricoles, terrain d'accueil des aménagements."
+     "lecture": "Part du sous-bassin occupée par des parcelles du registre parcellaire graphique."
     },
     {
      "cle": "D2",
@@ -116,7 +116,7 @@
      "unite": "km/km²",
      "sens": 1,
      "source": "BD TOPO, tronçons de route",
-     "lecture": "Chemins et routes empierrées, qui donnent accès aux parcelles."
+     "lecture": "Longueur de chemins et de routes empierrées, rapportée à la surface. Retenu comme approche de l'accessibilité des parcelles."
     },
     {
      "cle": "D3",
@@ -124,7 +124,7 @@
      "unite": "ha",
      "sens": 1,
      "source": "Registre parcellaire graphique 2024",
-     "lecture": "Des parcelles plus grandes réduisent le nombre d'exploitants à associer à un aménagement."
+     "lecture": "Surface moyenne des parcelles du registre parcellaire graphique. Retenu comme approche de la facilité de mobilisation du foncier."
     }
    ]
   }

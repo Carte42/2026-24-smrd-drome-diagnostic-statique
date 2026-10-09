@@ -15,7 +15,7 @@ const ETAPES = [
     emoji: '⭐',
     titre: 'Choisissez un niveau de priorité',
     texte:
-      "Le curseur ne garde que les sous-bassins classés au moins à ce niveau. À cinq étoiles, ce sont ceux où agir en premier ; la carte et les compteurs suivent.",
+      "Le curseur ne garde que les sous-bassins classés au moins à ce niveau. À cinq étoiles, ce sont les mieux classés par la grille ; la carte et les compteurs suivent.",
   },
   {
     ancre: 'grille',

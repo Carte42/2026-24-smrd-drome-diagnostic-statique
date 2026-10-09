@@ -44,7 +44,7 @@ CRITERES = [
     {"cle": "I", "libelle": "Potentiel d'infiltration", "poids": 45,
      "lecture": "Part de la surface en pente inférieure à 10 % et convergence des écoulements."},
     {"cle": "S", "libelle": "Pression sur les milieux et les sols", "poids": 25,
-     "lecture": "Part des terres arables et des cultures permanentes, qui ruissellent davantage ou consomment plus d'eau que les prairies."},
+     "lecture": "Part des terres arables et des cultures permanentes dans la surface agricole du secteur. Retenu comme approche de la pression sur le ruissellement et sur la ressource en eau."},
 ]
 
 

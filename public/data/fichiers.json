@@ -9,14 +9,14 @@
       "nom": "criteres_agricoles.json",
       "legende": "Critères de notation des secteurs agricoles",
       "famille": "donnees",
-      "octets": 542
+      "octets": 595
     },
     {
       "chemin": "data/grille.json",
       "nom": "grille.json",
       "legende": "Grille de notation : familles, indicateurs, coefficients, sources",
       "famille": "donnees",
-      "octets": 4503
+      "octets": 4590
     },
     {
       "chemin": "data/inegibles.geojson",
@@ -58,7 +58,7 @@
       "nom": "traitements.zip",
       "legende": "Les scripts qui produisent tout ce qui précède",
       "famille": "donnees",
-      "octets": 24397
+      "octets": 24295
     },
     {
       "chemin": "data/bassin_drome.geojson",

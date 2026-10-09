@@ -519,3 +519,5 @@ button { font: inherit; color: inherit; }
   .bandeau { font-size: 11px; line-height: 1.4; padding: 6px 0; }
   .bandeau-cadre { padding: 0 10px; }
 }
+
+.bulle-source { font-size: 10.5px; line-height: 1.4; color: var(--muted); margin-top: 8px; }
