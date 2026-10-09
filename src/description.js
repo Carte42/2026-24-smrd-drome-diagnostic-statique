@@ -33,9 +33,9 @@ export function decrireBassin(p) {
   else occupation = 'largement agricole'
   let detail = ''
   if (p.D1 >= 15) {
-    if (p.B3 >= 50 && p.B2 >= 10) detail = ' : grandes cultures, avec des vignes et des vergers'
-    else if (p.B3 >= 50) detail = ' : surtout des grandes cultures'
-    else if (p.B2 >= 10) detail = ' : cultures et vignes ou vergers'
+    if (p.B3 >= 50 && p.B2 >= 10) detail = ' : surtout des terres cultivées, avec des vignes et d\'autres cultures pérennes'
+    else if (p.B3 >= 50) detail = ' : surtout des terres cultivées'
+    else if (p.B2 >= 10) detail = ' : terres cultivées, vignes et cultures pérennes'
     else if (p.B3 < 25) detail = ' : surtout des prairies'
     else detail = ' : cultures et prairies'
     if (p.D3 >= 2.5) detail += ', aux parcelles assez grandes'
@@ -87,8 +87,8 @@ export function decrireSecteur(p) {
   const terrain = p.pente10 >= 60 ? 'Terrain plat' : p.pente10 >= 30 ? 'Pente modérée' : 'Terrain en pente'
   let sol
   if (p.ta >= 60) {
-    sol = `cultivé en grandes cultures${p.dist_eau_m < 300 ? " : l'eau de pluie ruisselle vers le cours d'eau voisin" : ''}`
-  } else if (p.cp >= 30) sol = 'planté en vignes ou en vergers'
+    sol = `cultivé en terres arables${p.dist_eau_m < 300 ? " : l'eau de pluie ruisselle vers le cours d'eau voisin" : ''}`
+  } else if (p.cp >= 30) sol = 'planté en vignes ou en cultures pérennes'
   else if (p.ta < 20 && p.cp < 20) sol = 'en prairie : sol enherbé, peu de ruissellement à corriger'
   else sol = 'en partie cultivé'
   const s2 = `${terrain}, ${sol}.`

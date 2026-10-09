@@ -9,7 +9,7 @@ La bulle qui s'ouvre au clic sur un sous-bassin ou un secteur agricole décrit l
 | 1. Relief | Altitude médiane | < 350 m · < 600 m · < 1 200 m · au-delà | fond de vallée · piémont · moyenne montagne · haute montagne |
 | 1. Pente | Pente médiane | < 20 % · < 35 % · au-delà | au terrain doux · au relief modéré · aux versants raides |
 | 1. Occupation | Part de surface agricole utile (D1) | < 15 % · < 30 % · au-delà | avec peu de terres agricoles · avec des terres agricoles par endroits · largement agricole |
-| 1. Cultures | Terres arables (B3), cultures permanentes (B2) | B3 ≥ 50 % et B2 ≥ 10 % · B3 ≥ 50 % · B2 ≥ 10 % · B3 < 25 % · sinon | grandes cultures avec vignes et vergers · surtout grandes cultures · cultures et vignes ou vergers · surtout prairies · cultures et prairies |
+| 1. Cultures | Terres arables (B3), cultures permanentes (B2) | B3 ≥ 50 % et B2 ≥ 10 % · B3 ≥ 50 % · B2 ≥ 10 % · B3 < 25 % · sinon | surtout des terres cultivées avec des vignes et d'autres cultures pérennes · surtout des terres cultivées · terres cultivées, vignes et cultures pérennes · surtout des prairies · cultures et prairies |
 | 1. Parcelles | Taille moyenne (D3) | ≥ 2,5 ha · < 1,2 ha | aux parcelles assez grandes · aux petites parcelles |
 | 2. Réseau | Densité de cours d'eau (A1) | ≥ 2,8 km/km² · ≤ 1,3 | dense · peu dense |
 | 2. Régime | Part intermittente (A2) | ≥ 85 % · ≥ 65 % · sinon | presque entièrement intermittent · en grande partie intermittent · en partie permanent |
@@ -27,7 +27,7 @@ La bulle qui s'ouvre au clic sur un sous-bassin ou un secteur agricole décrit l
 | 1. Relief | Altitude du secteur | mêmes classes que le sous-bassin | fond de vallée · piémont · moyenne montagne · haute montagne |
 | 1. Eau | Distance au plus proche cours d'eau naturel ou source | < 50 m · < 700 m · au-delà | au bord · à environ N m (arrondi à 50 m) · éloigné |
 | 2. Terrain | Part en pente < 10 % | ≥ 60 % · ≥ 30 % · sinon | terrain plat · pente modérée · terrain en pente |
-| 2. Sol | Terres arables, cultures permanentes | ta ≥ 60 % · cp ≥ 30 % · ta < 20 % et cp < 20 % · sinon | grandes cultures (avec mention du ruissellement si le cours d'eau est à moins de 300 m) · vignes ou vergers · prairie, sol enherbé · en partie cultivé |
+| 2. Sol | Terres arables, cultures permanentes | ta ≥ 60 % · cp ≥ 30 % · ta < 20 % et cp < 20 % · sinon | cultivé en terres arables (avec mention du ruissellement si le cours d'eau est à moins de 300 m) · planté en vignes ou en cultures pérennes · en prairie, sol enherbé · en partie cultivé |
 | 3. Accès | Distance au plus proche chemin ou route | < 60 m · < 200 m · au-delà | en bordure d'un chemin · accessible par un chemin proche · à l'écart des chemins |
 
 **Conclusion selon les étoiles.** 4 et 5 : bien placé et réalisable. 3 : envisageable. 1 et 2 : moins bien placé que les autres du même sous-bassin.
@@ -37,3 +37,7 @@ Les étoiles d'un secteur sont celles de son sous-bassin lorsque celui-ci compte
 ## Nature du texte
 
 Les phrases décrivent des indicateurs. La conclusion est une lecture de la priorité, pas une mesure : elle traduit en mots le niveau d'étoiles. Les seuils sont des choix de présentation, modifiables sans toucher à la grille de notation.
+
+## Ce que recouvrent les catégories de culture
+
+Les mots employés viennent de l'attribut de catégorie principale du Registre parcellaire graphique 2024 : terres arables, cultures permanentes, prairies permanentes. Sur le bassin de la Gervanne, les terres arables ne sont pas que des cultures de vente : à côté du blé tendre, de l'orge et du tournesol, elles comptent de la luzerne, du sainfoin, des prairies temporaires et des mélanges fourragers. Les cultures permanentes sont à plus de 80 % de la vigne, avec de la lavande et du lavandin, des noyers et quelques vergers. D'où « terres cultivées » et « cultures pérennes » dans les textes.
