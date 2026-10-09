@@ -1,0 +1,133 @@
+{
+ "familles": [
+  {
+   "cle": "A",
+   "libelle": "Vulnérabilité des milieux aquatiques",
+   "poids": 30,
+   "question": "Les milieux à soutenir sont-ils nombreux et fragiles ?",
+   "indicateurs": [
+    {
+     "cle": "A1",
+     "libelle": "Densité de cours d'eau",
+     "unite": "km/km²",
+     "sens": 1,
+     "source": "BD TOPO, tronçons hydrographiques naturels",
+     "lecture": "Longueur de cours d'eau, permanents et intermittents, rapportée à la surface. Plus il y a de milieux à soutenir, plus l'action est utile."
+    },
+    {
+     "cle": "A2",
+     "libelle": "Part du réseau intermittent",
+     "unite": "%",
+     "sens": 1,
+     "source": "BD TOPO, attribut de persistance",
+     "lecture": "Part du linéaire qui s'assèche par intermittence. Un réseau intermittent est plus exposé aux assecs."
+    },
+    {
+     "cle": "A3",
+     "libelle": "Sources et résurgences",
+     "unite": "pour 10 km²",
+     "sens": 1,
+     "source": "BD TOPO, détails hydrographiques",
+     "lecture": "Sources, sources captées et résurgences recensées. Elles marquent les zones d'alimentation à préserver."
+    }
+   ]
+  },
+  {
+   "cle": "B",
+   "libelle": "Pressions sur les milieux",
+   "poids": 25,
+   "question": "Quelles pressions s'exercent sur ces milieux ?",
+   "indicateurs": [
+    {
+     "cle": "B1",
+     "libelle": "Emprise du bâti et des routes revêtues",
+     "unite": "%",
+     "sens": 1,
+     "source": "BD TOPO, bâtiments et tronçons de route",
+     "lecture": "Surface imperméabilisée estimée : emprise des bâtiments et des routes revêtues, rapportée à la surface."
+    },
+    {
+     "cle": "B2",
+     "libelle": "Part des cultures permanentes",
+     "unite": "% de la SAU",
+     "sens": 1,
+     "source": "Registre parcellaire graphique 2024",
+     "lecture": "Vignes, vergers et autres cultures permanentes, plus dépendantes de l'eau que les prairies : pression potentielle sur la ressource."
+    },
+    {
+     "cle": "B3",
+     "libelle": "Part des terres arables",
+     "unite": "% de la SAU",
+     "sens": 1,
+     "source": "Registre parcellaire graphique 2024",
+     "lecture": "Part des terres arables dans la surface agricole utile. Les sols cultivés ruissellent davantage que les prairies."
+    }
+   ]
+  },
+  {
+   "cle": "C",
+   "libelle": "Potentiel d'infiltration",
+   "poids": 25,
+   "question": "Le terrain se prête-t-il à l'infiltration ?",
+   "indicateurs": [
+    {
+     "cle": "C1",
+     "libelle": "Surface en pente faible",
+     "unite": "% (pente < 15 %)",
+     "sens": 1,
+     "source": "RGE ALTI, rééchantillonné à 25 m",
+     "lecture": "Part de la surface où la pente reste inférieure à 15 %, condition d'un aménagement paysager d'infiltration."
+    },
+    {
+     "cle": "C2",
+     "libelle": "Convergence des écoulements",
+     "unite": "indice",
+     "sens": 1,
+     "source": "RGE ALTI, indice d'humidité topographique médian",
+     "lecture": "Indice qui croît là où les écoulements convergent. Il repère les terrains où le ruissellement se concentre."
+    },
+    {
+     "cle": "C3",
+     "libelle": "SAU en pente faible",
+     "unite": "% (pente < 10 %)",
+     "sens": 1,
+     "source": "RGE ALTI et registre parcellaire graphique 2024",
+     "lecture": "Part de la surface agricole utile en pente inférieure à 10 %, directement mobilisable."
+    }
+   ]
+  },
+  {
+   "cle": "D",
+   "libelle": "Faisabilité d'une action",
+   "poids": 20,
+   "question": "L'action est-elle réalisable à court terme ?",
+   "indicateurs": [
+    {
+     "cle": "D1",
+     "libelle": "Part de la surface agricole utile",
+     "unite": "%",
+     "sens": 1,
+     "source": "Registre parcellaire graphique 2024",
+     "lecture": "Part du sous-bassin occupée par des parcelles agricoles, terrain d'accueil des aménagements."
+    },
+    {
+     "cle": "D2",
+     "libelle": "Densité de chemins et de routes empierrées",
+     "unite": "km/km²",
+     "sens": 1,
+     "source": "BD TOPO, tronçons de route",
+     "lecture": "Chemins et routes empierrées, qui donnent accès aux parcelles."
+    },
+    {
+     "cle": "D3",
+     "libelle": "Taille moyenne des parcelles",
+     "unite": "ha",
+     "sens": 1,
+     "source": "Registre parcellaire graphique 2024",
+     "lecture": "Des parcelles plus grandes réduisent le nombre d'exploitants à associer à un aménagement."
+    }
+   ]
+  }
+ ],
+ "classes": 5
+}

@@ -1,0 +1,29 @@
+node_modules/
+dist/
+.DS_Store
+Thumbs.db
+
+# Donnees sources lourdes : telechargees par le pipeline, jamais versionnees
+pipeline/sources/
+pipeline/travail/
+*.gpkg
+*.tif
+*.zip
+
+# Exception : les exports publies du demonstrateur, legers et attendus par la page
+!public/data/*.zip
+
+# Aucune piece d'offre dans ce depot
+*.docx
+*.xlsx
+*.pdf
+
+# Exception : les planches imprimables produites par le pipeline, qui sont une
+# sortie du demonstrateur et non une piece d'offre
+!public/planches/*.pdf
+
+# Caches Python
+__pycache__/
+*.pyc
+*.nbi
+*.nbc

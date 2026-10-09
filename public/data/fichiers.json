@@ -1,0 +1,99 @@
+{
+  "familles": {
+    "donnees": "Données et traitements",
+    "situation": "Situation dans le bassin de la Drôme"
+  },
+  "fichiers": [
+    {
+      "chemin": "data/criteres_agricoles.json",
+      "nom": "criteres_agricoles.json",
+      "legende": "Critères de notation des secteurs agricoles",
+      "famille": "donnees",
+      "octets": 549
+    },
+    {
+      "chemin": "data/grille.json",
+      "nom": "grille.json",
+      "legende": "Grille de notation : familles, indicateurs, coefficients, sources",
+      "famille": "donnees",
+      "octets": 4503
+    },
+    {
+      "chemin": "data/inegibles.geojson",
+      "nom": "inegibles.geojson",
+      "legende": "Espaces inéligibles : pente, bâti et routes revêtues, surfaces en eau",
+      "famille": "donnees",
+      "octets": 745320
+    },
+    {
+      "chemin": "data/secteurs.csv",
+      "nom": "secteurs.csv",
+      "legende": "Les mêmes secteurs en tableur, sans géométrie",
+      "famille": "donnees",
+      "octets": 20802
+    },
+    {
+      "chemin": "data/secteurs.geojson",
+      "nom": "secteurs.geojson",
+      "legende": "Secteurs agricoles notés, hors espaces inéligibles",
+      "famille": "donnees",
+      "octets": 1045825
+    },
+    {
+      "chemin": "data/sous_bassins.csv",
+      "nom": "sous_bassins.csv",
+      "legende": "Les mêmes données en tableur, sans géométrie",
+      "famille": "donnees",
+      "octets": 2715
+    },
+    {
+      "chemin": "data/sous_bassins.geojson",
+      "nom": "sous_bassins.geojson",
+      "legende": "Sous-bassins versants du secteur, avec leurs douze indicateurs, leurs notes et leur priorité",
+      "famille": "donnees",
+      "octets": 76506
+    },
+    {
+      "chemin": "data/traitements.zip",
+      "nom": "traitements.zip",
+      "legende": "Les scripts qui produisent tout ce qui précède",
+      "famille": "donnees",
+      "octets": 23774
+    },
+    {
+      "chemin": "data/bassin_drome.geojson",
+      "nom": "bassin_drome.geojson",
+      "legende": "Contour du bassin de la Drôme, délimité sur le modèle numérique de terrain",
+      "famille": "situation",
+      "octets": 8681
+    },
+    {
+      "chemin": "data/bassin_gervanne.geojson",
+      "nom": "bassin_gervanne.geojson",
+      "legende": "Contour du bassin de la Gervanne, délimité sur le modèle numérique de terrain",
+      "famille": "situation",
+      "octets": 13037
+    },
+    {
+      "chemin": "data/communes_bassin.geojson",
+      "nom": "communes_bassin.geojson",
+      "legende": "Communes recouvrant le bassin de la Drôme pour un cinquième au moins de leur surface",
+      "famille": "situation",
+      "octets": 110154
+    },
+    {
+      "chemin": "data/emprise.json",
+      "nom": "emprise.json",
+      "legende": "Surfaces délimitées et comparaison avec le cahier des clauses techniques",
+      "famille": "situation",
+      "octets": 172
+    },
+    {
+      "chemin": "data/reseau_principal.geojson",
+      "nom": "reseau_principal.geojson",
+      "legende": "Cours d'eau nommés de la BD TOPO dans le bassin de la Drôme",
+      "famille": "situation",
+      "octets": 154276
+    }
+  ]
+}
