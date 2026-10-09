@@ -65,6 +65,17 @@ export default function App() {
     ? donnees.secteurs.features.map((f) => f.properties).find((p) => p.maille === secteur)
     : null
 
+  // Les couches transmises à la carte. L'objet doit garder la même identité d'un
+  // rendu à l'autre : recréé à chaque changement du curseur, il relançait le
+  // cadrage de la carte et le redessin des couches en pleine animation.
+  const donneesCarte = useMemo(
+    () => donnees && {
+      sousBassins: donnees.sousBassins, secteurs: donnees.secteurs, exclusions: donnees.exclusions,
+      drome: donnees.drome, gervanne: donnees.gervanne, communes: donnees.communes, reseau: donnees.reseau,
+    },
+    [donnees],
+  )
+
   const surChoix = useCallback((id) => setChoix(id), [])
   const surSecteur = useCallback((m) => setSecteur(m), [])
 
@@ -88,7 +99,7 @@ export default function App() {
 
         {/* ── Question et curseur ── */}
         <div className="bloc" data-ob-anchor="curseur">
-          <h2>Où agir d'abord</h2>
+          <h2>Degré de priorité</h2>
           <div className="etoiles-grand" aria-hidden="true">{ETOILES(seuil)}</div>
           <input
             type="range" min="1" max="5" step="1" value={seuil}
@@ -277,10 +288,7 @@ export default function App() {
         </div>
 
         <MapView
-          donnees={{
-            sousBassins: donnees.sousBassins, secteurs: donnees.secteurs, exclusions: donnees.exclusions,
-            drome: donnees.drome, gervanne: donnees.gervanne, communes: donnees.communes, reseau: donnees.reseau,
-          }}
+          donnees={donneesCarte}
           niveau={niveau} seuil={seuil} choix={choix} onChoix={surChoix}
           secteur={secteur} onSecteur={surSecteur} exclusions={exclusions} fond={fond} cadre={cadre}
         />
