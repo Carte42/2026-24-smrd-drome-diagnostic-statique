@@ -96,6 +96,17 @@ export default function App() {
   const classes = niveau === 'bassin' ? PRIORITE_BASSIN : PRIORITE_SECTEUR
 
   return (
+    <div className="page">
+      <div className="bandeau" role="note">
+        <span className="bandeau-badge">Démonstration</span>
+        <span className="bandeau-texte">
+          Méthode de Carte 42 présentée en réponse à la consultation du SMRD « Diagnostic territorial du bassin
+          versant de la Drôme ». Cette page n'est pas un site du SMRD. Les résultats illustrent la méthode : ils
+          n'ont pas valeur de diagnostic et ne doivent pas servir à établir des plans d'action ou des études
+          ultérieures.
+        </span>
+        <button className="bandeau-lien" onClick={() => setApropos(true)}>En savoir plus</button>
+      </div>
     <div className="app">
       <aside className="sidebar">
         <div className="entete">
@@ -328,6 +339,7 @@ export default function App() {
 
       <Onboarding onDemarrer={() => setCadre('secteur')} emprise={emprise} />
       {apropos && <Apropos donnees={donnees} onFermer={() => setApropos(false)} />}
+    </div>
     </div>
   )
 }
