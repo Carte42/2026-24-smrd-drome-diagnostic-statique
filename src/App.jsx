@@ -86,6 +86,13 @@ export default function App() {
     setTimeout(() => document.querySelector('.sidebar .detail')?.scrollIntoView({ block: 'start', behavior: 'smooth' }), 60)
   }, [])
 
+  // Visite guidée : la carte montre ce que décrit l'étape. Les espaces
+  // inéligibles accompagnent la présentation des trois phases, puis s'effacent.
+  const surEtape = useCallback((i) => {
+    setExclusions(i === 0)
+    setNiveau('bassin')
+  }, [])
+
   const surChoix = useCallback((id) => setChoix(id), [])
   const surSecteur = useCallback((m) => setSecteur(m), [])
 
@@ -118,9 +125,40 @@ export default function App() {
           </div>
         </div>
 
-        {/* ── Question et curseur ── */}
+        {/* ── La question du SMRD et les trois phases du cahier des charges ── */}
+        <div className="demarche" data-ob-anchor="demarche">
+          <p className="question">
+            Où agir en priorité pour infiltrer l'eau dans les sols, au profit des milieux aquatiques&nbsp;?
+          </p>
+          <div className="volets" role="group" aria-label="Phases de la méthode">
+            <button className={`volet${exclusions ? ' on' : ''}`} aria-pressed={exclusions}
+              onClick={() => setExclusions((e) => !e)}>
+              <span className="volet-num">1</span>
+              <span className="volet-texte">
+                <span className="volet-phase">Phase 1 · Cadre</span>
+                <span className="volet-titre">Espaces inéligibles à l'infiltration</span>
+              </span>
+            </button>
+            <button className={`volet${niveau === 'bassin' ? ' on' : ''}`} onClick={() => setNiveau('bassin')}>
+              <span className="volet-num">2</span>
+              <span className="volet-texte">
+                <span className="volet-phase">Phase 2 · Bassin</span>
+                <span className="volet-titre">Sous-bassins versants prioritaires</span>
+              </span>
+            </button>
+            <button className={`volet${niveau === 'agricole' ? ' on' : ''}`} onClick={() => setNiveau('agricole')}>
+              <span className="volet-num">3</span>
+              <span className="volet-texte">
+                <span className="volet-phase">Phase 3 · Milieu agricole</span>
+                <span className="volet-titre">Secteurs à aménager sous deux ans</span>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        {/* ── Curseur de priorité ── */}
         <div className="bloc" data-ob-anchor="curseur">
-          <h2>Degré de priorité</h2>
+          <h2>Priorité d'action pour l'infiltration</h2>
           <div className="etoiles-grand" aria-hidden="true">{ETOILES(seuil)}</div>
           <input
             type="range" min="1" max="5" step="1" value={seuil}
@@ -133,22 +171,6 @@ export default function App() {
             <b>{retenus.length}</b> sous-bassin{retenus.length > 1 ? 's' : ''} sur {unites.length}
             <span> · {nombre(surfaceRetenue, 0)} km², soit {nombre((100 * surfaceRetenue) / surfaceTotale, 0)} % du secteur</span>
           </div>
-        </div>
-
-        {/* ── Deux échelles de lecture ── */}
-        <div className="volets" role="group" aria-label="Échelle de lecture">
-          <button className={`volet${niveau === 'bassin' ? ' on' : ''}`} onClick={() => setNiveau('bassin')}>
-            <span className="volet-texte">
-              <span className="volet-phase">Échelle du bassin</span>
-              <span className="volet-titre">Sous-bassins versants</span>
-            </span>
-          </button>
-          <button className={`volet${niveau === 'agricole' ? ' on' : ''}`} onClick={() => setNiveau('agricole')}>
-            <span className="volet-texte">
-              <span className="volet-phase">Échelle opérationnelle</span>
-              <span className="volet-titre">Milieu agricole</span>
-            </span>
-          </button>
         </div>
 
         {/* ── Lecture selon l'échelle ── */}
@@ -337,7 +359,7 @@ export default function App() {
         </div>
       </main>
 
-      <Onboarding onDemarrer={() => setCadre('secteur')} emprise={emprise} />
+      <Onboarding onDemarrer={() => setCadre('secteur')} onEtape={surEtape} emprise={emprise} />
       {apropos && <Apropos donnees={donnees} onFermer={() => setApropos(false)} />}
     </div>
     </div>

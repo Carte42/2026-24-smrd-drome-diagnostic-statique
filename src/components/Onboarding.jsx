@@ -2,27 +2,35 @@ import React, { useState, useEffect } from 'react'
 
 /**
  * Accueil et visite guidée — même machine à états que les démonstrateurs
- * SDE 35, EPTB Vistre Vistrenque et Montpellier : welcome → 1 → 2 → 3 → done.
+ * SDE 35, EPTB Vistre Vistrenque et Montpellier : welcome → 1 → … → done.
  *
- * L'écran de bienvenue présente la consultation et son contexte : un évaluateur
- * qui ne clique rien doit savoir de quoi il s'agit, sur quel territoire et ce
- * que montre l'interface. Les trois étapes suivantes sont ancrées sur les vrais
- * contrôles via data-ob-anchor, et se repositionnent au redimensionnement.
+ * L'écran de bienvenue pose la question du maître d'ouvrage et les trois phases
+ * du cahier des charges : un évaluateur qui ne clique rien doit reconnaître son
+ * besoin, le territoire et ce que montre l'interface. Les étapes suivantes sont
+ * ancrées sur les vrais contrôles via data-ob-anchor, et se repositionnent au
+ * redimensionnement. `onEtape` permet à la carte de montrer ce que décrit l'étape.
  */
 const ETAPES = [
+  {
+    ancre: 'demarche',
+    emoji: '🧭',
+    titre: 'Les trois phases du cahier des charges',
+    texte:
+      "Phase 1 : les espaces inéligibles à l'infiltration, affichés sur la carte. Phase 2 : les sous-bassins versants classés. Phase 3 : les secteurs agricoles prioritaires. Cliquez une phase pour l'afficher.",
+  },
   {
     ancre: 'curseur',
     emoji: '⭐',
     titre: 'Choisissez un niveau de priorité',
     texte:
-      "Le curseur ne garde que les sous-bassins classés au moins à ce niveau. À cinq étoiles, ce sont les mieux classés par la grille ; la carte et les compteurs suivent.",
+      "Le curseur ne garde que les sous-bassins où agir en priorité, au moins à ce niveau. À cinq étoiles, ce sont les mieux classés par la grille ; la carte et les compteurs suivent.",
   },
   {
     ancre: 'grille',
     emoji: '⚖',
     titre: 'Consultez la grille de notation',
     texte:
-      "Quatre familles d'indicateurs pondérés notent chaque sous-bassin. La grille est affichée à côté de son résultat ; ses coefficients sont proposés à titre d'exemple.",
+      "Quatre familles d'indicateurs pondérés notent chaque sous-bassin. Ses coefficients, proposés ici à titre d'exemple, sont arrêtés avec le SMRD en comité technique.",
   },
   {
     ancre: 'export',
@@ -33,9 +41,13 @@ const ETAPES = [
   },
 ]
 
-export default function Onboarding({ onDemarrer, emprise }) {
+export default function Onboarding({ onDemarrer, onEtape, emprise }) {
   const [etape, setEtape] = useState('accueil')
   const [haut, setHaut] = useState(220)
+
+  useEffect(() => {
+    if (typeof etape === 'number') onEtape?.(etape)
+  }, [etape, onEtape])
 
   useEffect(() => {
     if (typeof etape !== 'number') return
@@ -73,13 +85,19 @@ export default function Onboarding({ onDemarrer, emprise }) {
           <div className="ob-welcome-subtitle">
             SMRD · Diagnostic territorial du bassin versant de la Drôme · Carte 42
           </div>
-          <div className="ob-welcome-text">
-            Démonstration de la méthode Carte 42 en réponse à la consultation du Syndicat Mixte de la Rivière
-            Drôme : diagnostic territorial préalable à la programmation d'actions de résilience du SAGE.
-            Cette interface, proposée à titre d'exemple, applique la chaîne complète au bassin de la Gervanne (
-            {Math.round(emprise.bassin_gervanne_km2)}&nbsp;km²), sur données ouvertes : sous-bassins, grille
-            multicritères, secteurs agricoles prioritaires.
+          <div className="ob-welcome-question">
+            Où agir en priorité pour infiltrer l'eau dans les sols, au profit des milieux aquatiques&nbsp;?
           </div>
+          <div className="ob-welcome-text">
+            Cette interface applique la méthode Carte 42 au bassin de la Gervanne (
+            {Math.round(emprise.bassin_gervanne_km2)}&nbsp;km²), sur données ouvertes et à titre d'exemple,
+            en suivant les trois phases du cahier des charges&nbsp;:
+          </div>
+          <ol className="ob-welcome-phases">
+            <li>écarter les espaces qui ne peuvent pas accueillir d'aménagement d'infiltration&nbsp;;</li>
+            <li>classer les sous-bassins versants par une grille multicritères&nbsp;;</li>
+            <li>désigner, dans chacun, les secteurs agricoles prioritaires pour des aménagements à engager sous deux ans.</li>
+          </ol>
           <button className="ob-start" onClick={suivant}>Commencer →</button>
         </div>
       )}
